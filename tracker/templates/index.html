@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Expense Tracker</title>
+<style>
+body{background:#111;color:white;font-family:Arial;padding:30px}
+input,select{padding:10px;margin:5px}
+button{padding:10px 20px;background:#00ff88;border:none;cursor:pointer}
+.card{background:#222;padding:15px;margin:10px 0;border-radius:8px}
+a{color:red}
+</style>
+</head>
+<body>
+<h1>💰 My Expense Tracker - {{ total }}</h1>
+<form method="POST">
+{% csrf_token %}
+<input name="title" placeholder="Ex: Biryani" required>
+<input name="amount" type="number" placeholder="Amount" required>
+<select name="category"><option>Food</option><option>Travel</option><option>Shopping</option></select>
+<button type="submit">ADD</button>
+</form>
+<hr>
+{% for e in expenses %}
+<div class="card">{{ e.title }} - Rs {{ e.amount }} ({{ e.category }}) <a href="/delete/{{ e.id }}/">Delete</a></div>
+{% empty %}
+<p>No expenses yet ba, add chey!</p>
+{% endfor %}
+</body>
+</html>
